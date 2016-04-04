@@ -1,11 +1,11 @@
-Package: home
-Type: OpenCPU Application
+Package: openmetaanalysis
+Type: Package 
 Title: openMetaAnalysis application for binary outcomes at OpenCPU
 Version: 0.1
 Date: 2014-12-19
 Author: Robert Badgett
 Maintainer: Robert Badgett <rbadgett@kumc.edu>
-Description: OpenCPU application for meta-analysis of binary outcomes using package meta.
+Description: R application for meta-analysis of binary outcomes using package meta. Intended for use on the OpenCPU server.
 License: GPL
 Depends:
 	lme4,
@@ -13,17 +13,17 @@ Depends:
 	Matrix
 Imports:
     boot,
-	ggplot2,
+    ggplot2,
     httr,
     RJSONIO,
     stringr,
     reshape2,
     grid,
-	rmeta,
+    rmeta,
     meta,
-	mada,
-	Metatron,
-	metafor
+    mada,
+    Metatron,
+    metafor
 Collate:
-	'diagnosis.R'
+    'diagnosis.R'
     'intervention.R'
