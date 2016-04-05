@@ -1,9 +1,12 @@
+#' Perform a meta-analysis of interventions (11/30/2014 converted to Hartung and Knapp estimators for broader confidence intervals.
+#' Generates an intervention plot from CSV data.
 #Uses http://cran.r-project.org/web/packages/meta/
-#Alternatives:f
-# http://cran.r-project.org/web/packages/metafor/ (allows continuity correction)
-# http://cran.r-project.org/web/packages/rmeta/
-# Discussion of continuity correction:
-# http://handbook.cochrane.org/chapter_16/16_9_2_studies_with_zero_cell_counts.htm
+#' Alternatives:f
+#' http://cran.r-project.org/web/packages/metafor/ (allows continuity correction)
+#' http://cran.r-project.org/web/packages/rmeta/
+#' Discussion of continuity correction:
+#' http://handbook.cochrane.org/chapter_16/16_9_2_studies_with_zero_cell_counts.htm
+#' @export
 intervention <- function(content, measure, hartung, year, pmid, sortby, lefthand, righthand, type, independent_variable, cofactorlabel, topic, label_location, theme) {
 temp <- content
 # Uses package meta http://cran.r-project.org/web/packages/meta/
@@ -98,13 +101,13 @@ if (type=="ignore")
 		}
 	else
 		{
-		meta1 <- metabin(exp_events, exp_total, control_events, control_total, data=myframe, sm = measure, hakn = hartung, method="Inverse", level = 0.95, incr = "TA", allstudies = TRUE, studlab=paste(Study,", ", year, sep=""))
+		meta1 <- meta::metabin(exp_events, exp_total, control_events, control_total, data=myframe, sm = measure, hakn = hartung, method="Inverse", level = 0.95, incr = "TA", allstudies = TRUE, studlab=paste(Study,", ", year, sep=""))
 		xlimits=c(0.1, 10)
 		#Publication bias / small study effect
 		if (length(myframe$Study)>9)
 			{
-			meta1.as <- metabin(exp_events, exp_total, control_events, control_total, data=myframe, sm="ASD", method="I")
-			pubbias = metabias(meta1.as, plotit=FALSE)
+			meta1.as <- meta::metabin(exp_events, exp_total, control_events, control_total, data=myframe, sm="ASD", method="I")
+			pubbias = meta::metabias(meta1.as, plotit=FALSE)
 			pubbiastext = paste(pubbiastext, " (Rucker): p= ",round(pubbias$p.value,3),sep="");
 			}
 		else
@@ -146,12 +149,12 @@ if (type=="subgroup")
 		}
 	else
 		{
-		meta1 <- metabin(exp_events, exp_total, control_events,control_total, data=myframe, sm = measure, method="Inverse", hakn = hartung, level = 0.95, incr = "TA", allstudies = TRUE, studlab=paste(Study,", ", year, sep=""), label.left=lefthand, label.right=righthand, title = topic, byvar=cofactor, print.byvar = FALSE)
+		meta1 <- meta::metabin(exp_events, exp_total, control_events,control_total, data=myframe, sm = measure, method="Inverse", hakn = hartung, level = 0.95, incr = "TA", allstudies = TRUE, studlab=paste(Study,", ", year, sep=""), label.left=lefthand, label.right=righthand, title = topic, byvar=cofactor, print.byvar = FALSE)
 		xlimits=c(0.1, 10)
 		#Publication bias / small study effect
 		if (length(myframe$Study)>9)
 			{
-			meta1.as <- metabin(exp_events, exp_total, control_events, control_total, data=myframe, sm="ASD", method="I")
+			meta1.as <- meta::metabin(exp_events, exp_total, control_events, control_total, data=myframe, sm="ASD", method="I")
 			pubbias = metabias(meta1.as, plotit=FALSE)
 			pubbiastext = paste(pubbiastext, " (Rucker): p= ",round(pubbias$p.value,3),sep="");
 			}

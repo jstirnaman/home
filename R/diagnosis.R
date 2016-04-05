@@ -1,7 +1,10 @@
+#' Diagnosis using hierarchical bivariate model.
+#'  Generates a plot from CSV data.
 #Uses https://cran.r-project.org/web/packages/Metatron/
 #Uses https://cran.r-project.org/web/packages/mada/
-# Discussion of continuity correction:
-# http://handbook.cochrane.org/chapter_16/16_9_2_studies_with_zero_cell_counts.htm
+#' Discussion of continuity correction:
+#' http://handbook.cochrane.org/chapter_16/16_9_2_studies_with_zero_cell_counts.htm
+#' @export
 diagnosis <- function(content, measure, year, pmid, sortby, lefthand, righthand, type, cofactorlabel, topic, theme) {
 temp <- content
 # http://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html
