@@ -97,22 +97,23 @@ diagnosis <- function(content, measure, year, pmid, sortby, lefthand,
 
     #' point estimate
     svgtext = paste(svgtext,"<circle cx=\"", x, "\" cy=\"" , 10 + i*20 ,"\" r=\"3\" stroke-width=\"0\" style=\"fill:black;\"/>",sep="")
-  		#Confidence intervals
-  		cl.lower = 550 + 100 * meta1$spec$spec.ci[i,1]
-  		ci.upper = 550 + 100 * meta1$spec$spec.ci[i,2]
-  		svgtext = paste(svgtext,"<line x1=\"" , cl.lower ,"\" y1=\"" , 10 + i*20 ,"\" x2=\"" , ci.upper ,"\" y2=\"" , 10 + i*20 ,"\" style=\"stroke:rgba(0,0,0,1);stroke-width:2\" />", sep="")
+
+    #Confidence intervals
+    cl.lower = 550 + 100 * meta1$spec$spec.ci[i,1]
+    ci.upper = 550 + 100 * meta1$spec$spec.ci[i,2]
+    svgtext = paste(svgtext,"<line x1=\"" , cl.lower ,"\" y1=\"" , 10 + i*20 ,"\" x2=\"" , ci.upper ,"\" y2=\"" , 10 + i*20 ,"\" style=\"stroke:rgba(0,0,0,1);stroke-width:2\" />", sep="")
   }
 
     #' Bottom of plots
     svgtext = paste(svgtext, "<!-- Bottom of plot--><!-- Axes --><g style=\"stroke:rgba(0,0,0,0.2);stroke-width:2\"><line x1=\"325\" y1=\"",25 + i*20,"\" x2=\"425\" y2=\"", 25 + i*20 ,"\" />", sep="")
-  	svgtext = paste(svgtext, "<line x1=\"550\" y1=\"",25 + i*20,"\" x2=\"650\" y2=\"", 25 + i*20 ,"\" /></g>", sep="")
-  	svgtext = paste(svgtext, "<!-- Ticks --><g stroke=\"rgba(0,0,0,0.2)\" stroke-width=\"1\" fill=\"rgba(0,0,0,0.2)\"><g transform=\"translate(400, 245) rotate(180)\"><path d=\"M 0,0 L 0,5 M 50,0 L 50,5 M 100,0 L 100,5\" /></g><g transform=\"translate(650, 245) rotate(180)\"><path d=\"M 0,0 L 0,5 M 50,0 L 50,5 M 100,0 L 100,5\" /></g></g>", sep="")
+    svgtext = paste(svgtext, "<line x1=\"550\" y1=\"",25 + i*20,"\" x2=\"650\" y2=\"", 25 + i*20 ,"\" /></g>", sep="")
+    svgtext = paste(svgtext, "<!-- Ticks --><g stroke=\"rgba(0,0,0,0.2)\" stroke-width=\"1\" fill=\"rgba(0,0,0,0.2)\"><g transform=\"translate(400, 245) rotate(180)\"><path d=\"M 0,0 L 0,5 M 50,0 L 50,5 M 100,0 L 100,5\" /></g><g transform=\"translate(650, 245) rotate(180)\"><path d=\"M 0,0 L 0,5 M 50,0 L 50,5 M 100,0 L 100,5\" /></g></g>", sep="")
 
   if (type=="ignore") {
     #' The meta-analysis
-    meta2 <- perfect.trees(TP = myframe$TP, FN = myframe$FN, TN = myframe$TN,
-                           FP = myframe$FP, study = myframe$Study,
-                           data = myframe)
+    meta2 <- metatron::perfect.trees(TP = myframe$TP, FN = myframe$FN,
+                                     TN = myframe$TN, FP = myframe$FP,
+                                     study = myframe$Study, data = myframe)
 
     #' vertical lines for sn and sp
     #' sensitivity
@@ -199,7 +200,7 @@ diagnosis <- function(content, measure, year, pmid, sortby, lefthand,
 	}
   if (type=="metaregression (m)") {
 	msg = "Under construction"
-	# From mada's reitsma
+	#' From mada's reitsma
 	#(fit <- reitsma(Hayashino, formula = cbind(tsens, tfpr) ~ Year))
 	#summary(fit) ## sensitivities significantly lower for SAQ
 	#Could automatically check for sig of year, studysize, prevalence
@@ -209,8 +210,6 @@ diagnosis <- function(content, measure, year, pmid, sortby, lefthand,
 	svgtext = paste(svgtext, "Sorry, your browser does not support inline SVG for dynamic graphics.</svg>")
 
 	msg = paste("<h3 style=\"font-family:Arial, Helvetica, sans-serif\">", topic, "</h3>\n",svgtext,msg,sep="")
-	msg = paste(msg,"<table style=\"background-color:#CFCFCF\" border=\"0\"><tbody><tr><td><a class=\"selectall\" href=\"javascript:document.getElementById('svgfile').select()\">Select source code for graphics below</a> (then press control and C together to copy.)<br><textarea id=\"svgfile\" cols=\"80\" rows=\"10\" wrap=\"virtual\" onfocus=\"this.select()\">",svgtext,"</textarea></td></tr></tbody></table>",sep="")
-	list(
-	message = msg
-  )
+ 	msg = paste(msg,"<table style=\"background-color:#CFCFCF\" border=\"0\"><tbody><tr><td><a class=\"selectall\" href=\"javascript:document.getElementById('svgfile').select()\">Select source code for graphics below</a> (then press control and C together to copy.)<br><textarea id=\"svgfile\" cols=\"80\" rows=\"10\" wrap=\"virtual\" onfocus=\"this.select()\">",svgtext,"</textarea></td></tr></tbody></table>",sep="")
+	list(message = msg)
 }
