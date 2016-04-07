@@ -34,9 +34,8 @@
 <script> 
 $(document).ready(function(){
 
-	var hash = window.location.hash 
-	if (hash.length > 1) //location.hash.substring.length
-		{
+  var hash = window.location.hash 
+  if (hash.length > 1) { 
 		if (hash.indexOf('instruct')>0)
 			{
 			$("#column_names").css("display","inline")
@@ -57,7 +56,7 @@ $(document).ready(function(){
   editor.setFontSize("14px");
   editor.getSession().setUseWrapMode(true);
   
-    $("#submitbutton").on("click", function(){
+  $("#submitbutton").on("click", function(){
 		//disable the button to prevent multiple clicks
 		$("#submitbutton").attr("disabled", "disabled");
 		temp = editor.getSession().getValue()
@@ -91,7 +90,7 @@ $(document).ready(function(){
 			req.always(function(){
 			  $("#submitbutton").removeAttr("disabled")
 			});
-		  });
+		});
 	  
   //button handlers
 
@@ -389,7 +388,6 @@ http://jquery-csv.googlecode.com/git/examples/flot.html -> seems best and most s
 http://code.google.com/p/jquery-csv/wiki/API -> instructions
 -->
   <div class="container" style="width:1000px;">
-
     <div class="page-header">
       <div style="color:#0022B4">
 	  <h1>openMetaAnalysis: <span style="font-size:50%">collaborative and continuous</span></h1>
